@@ -1,0 +1,92 @@
+/api/register:
+  post:
+    tags:
+      - users
+    summary: Register
+    description: Registeratsiyadan o'tigandan keyin emailga confirmCode yuboriladi ana shuni yerda link ham beriladi confirmCodeni qayerga jo'natilishi kerakligi haqida.
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              gender:
+                type: string
+      required: true
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                success:
+                  type: boolean
+                message:
+                  type: string
+/api/confirmation/{confirm}:
+  get:
+    tags:
+      - users
+    parameters:
+     - name: confirm
+       in: path
+       description: Confirm Jo'nating Paramsdan
+       required: true
+       schema:
+        type: string
+    summary: Confirmation- token olish uchun
+    description: Registeratsiyadan o'tigandan keyin emailga confirmCode yuboriladi ana shuni yerda berilgan code ni bu yerga paramsdan yuborinshingiz kerak, agar confirm code to'g'ri kiritilgan bo'lsa token beriladi.
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                success:
+                  type: boolean
+                message:
+                  type: string
+                token:
+                 type: string
+/api/profile:
+  get:
+    summary:
+      - Get Profile
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                success:
+                  type: boolean
+                data:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    username:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    gender:
+                      type: string
+                    message:
+                      type: string
